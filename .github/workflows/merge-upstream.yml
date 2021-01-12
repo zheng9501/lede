@@ -1,0 +1,42 @@
+＃
+＃这是免费软件，可以使用MIT来使用。
+＃ 
+＃版权（C）2019 KFERMercer <KFER.Mercer@gmail.com>
+＃ 
+＃ <https://github.com/KFERMercer/OpenWrt-CI>
+＃
+
+名称：上游
+
+在：
+  推：
+    分行：
+      -大师
+  时间表：
+    -的cron的：30 19 * * *
+
+职位：
+  合并：
+
+    运行：ubuntu-latest
+
+    步骤：
+
+    -名称：结帐
+      用途：动作/结帐@大师
+      与：
+        参考：大师
+        提取深度：0
+        lfs：是
+
+    -名称：设置git身份
+      运行：|
+        git config --global user.email“ KFER.Mercer@gmail.com”
+        git config --global user.name“ KFERMercer”
+    -名称：加载上游提交
+      运行：git pull https://github.com/coolsnowwolf/lede.git --no-edit --strategy-option我们的
+
+    -名称：推送提交
+      环保：
+        DOWNSTREAM_BRANCH：主
+      运行：git push origin $ DOWNSTREAM_BRANCH
