@@ -1,42 +1,42 @@
-＃
-＃这是免费软件，可以使用MIT来使用。
-＃ 
-＃版权（C）2019 KFERMercer <KFER.Mercer@gmail.com>
-＃ 
-＃ <https://github.com/KFERMercer/OpenWrt-CI>
-＃
+#
+# This is free software, lisence use MIT.
+# 
+# Copyright (C) 2019 KFERMercer <KFER.Mercer@gmail.com>
+# 
+# <https://github.com/KFERMercer/OpenWrt-CI>
+#
 
-名称：上游
+name: Merge-upstream
 
-在：
-  推：
-    分行：
-      -大师
-  时间表：
-    -的cron的：30 19 * * *
+on:
+  push:
+    branches: 
+      - master
+  schedule:
+    - cron: 30 19 * * *
 
-职位：
-  合并：
+jobs:
+  merge:
 
-    运行：ubuntu-latest
+    runs-on: ubuntu-latest
 
-    步骤：
+    steps:
 
-    -名称：结帐
-      用途：动作/结帐@大师
-      与：
-        参考：大师
-        提取深度：0
-        lfs：是
+    - name: Checkout
+      uses: actions/checkout@master
+      with:
+        ref: master
+        fetch-depth: 0
+        lfs: true
 
-    -名称：设置git身份
-      运行：|
-        git config --global user.email“ KFER.Mercer@gmail.com”
-        git config --global user.name“ KFERMercer”
-    -名称：加载上游提交
-      运行：git pull https://github.com/coolsnowwolf/lede.git --no-edit --strategy-option我们的
+    - name: Set git identity
+      run : |
+        git config --global user.email "KFER.Mercer@gmail.com"
+        git config --global user.name "KFERMercer"
+    - name: Load upstream commits
+      run: git pull https://github.com/coolsnowwolf/lede.git --no-edit --strategy-option ours
 
-    -名称：推送提交
-      环保：
-        DOWNSTREAM_BRANCH：主
-      运行：git push origin $ DOWNSTREAM_BRANCH
+    - name: Push Commits
+      env:
+        DOWNSTREAM_BRANCH: master
+      run: git push origin $DOWNSTREAM_BRANCH
